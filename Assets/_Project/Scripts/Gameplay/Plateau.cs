@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Plateau : MonoBehaviour
@@ -15,10 +13,25 @@ public class Plateau : MonoBehaviour
     private bool isFull;
 
     public bool IsFull => isFull;
+    public bool IsEmpty => GetFirstObjectPosition() == null;
 
     private void Awake()
     {
         isFull = false;
+    }
+
+    public ObjectPosition GetFirstObjectPosition()
+    {
+        for (int i = 0; i < objectPositionsParent.childCount; i++)
+        {
+            if (!objectPositionsParent.GetChild(i).TryGetComponent(out ObjectPosition objectPosition))
+                continue;
+
+            if (!objectPosition.IsEmpty)
+                return objectPosition;
+        }
+
+        return null;
     }
 
     public void Push(SpawnableObject objectInstance)
@@ -35,6 +48,46 @@ public class Plateau : MonoBehaviour
             else
                 isFull = true;
         }
+    }
+
+    public SpawnableObject Pop()
+    {
+        ObjectPosition objectPosition = GetLastObjectPosition();
+
+        if (objectPosition == null)
+            return null;
+
+        isFull = false;
+
+        return objectPosition.Pop();
+    }
+
+    private ObjectPosition GetFirstEmptyObjectPosition()
+    {
+        for (int i = 0; i < objectPositionsParent.childCount; i++)
+        {
+            if (!objectPositionsParent.GetChild(i).TryGetComponent(out ObjectPosition objectPosition))
+                continue;
+
+            if (objectPosition.IsEmpty)
+                return objectPosition;
+        }
+
+        return null;
+    }
+
+    private ObjectPosition GetLastObjectPosition()
+    {
+        for (int i = objectPositionsParent.childCount - 1; i >= 0; i--)
+        {
+            if (!objectPositionsParent.GetChild(i).TryGetComponent(out ObjectPosition objectPosition))
+                continue;
+
+            if (!objectPosition.IsEmpty)
+                return objectPosition;
+        }
+
+        return null;
     }
 
     private void CreateNewObjectPosition()
@@ -55,19 +108,5 @@ public class Plateau : MonoBehaviour
         {
             objectPositionsParent.GetChild(i).localPosition = i * positionsYOffset * Vector3.up;
         }
-    }
-
-    private ObjectPosition GetFirstEmptyObjectPosition()
-    {
-        for (int i = 0; i < objectPositionsParent.childCount; i++)
-        {
-            if (!objectPositionsParent.GetChild(i).TryGetComponent(out ObjectPosition objectPosition))
-                continue;
-
-            if (objectPosition.IsEmpty)
-                return objectPosition;
-        }
-
-        return null;
     }
 }

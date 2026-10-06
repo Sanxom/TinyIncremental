@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerStation : MonoBehaviour
@@ -16,6 +13,16 @@ public class SpawnerStation : MonoBehaviour
     private void Update()
     {
         HandleSpawnTimer();
+    }
+
+    public SpawnableObject Pop()
+    {
+        SpawnableObject spawnableObject = plateau.Pop();
+
+        if (spawnableObject == null)
+            return null;
+
+        return spawnableObject;
     }
 
     private void HandleSpawnTimer()

@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class ObjectPosition : MonoBehaviour
 {
+    [Header("Elements")]
+    private SpawnableObject objectInThisPosition;
+
     [Header("Settings")]
     private bool isEmpty;
     public bool IsEmpty => isEmpty;
@@ -16,9 +19,21 @@ public class ObjectPosition : MonoBehaviour
 
     public void Push(SpawnableObject objectInstance)
     {
+        objectInThisPosition = objectInstance;
+
         objectInstance.transform.SetParent(transform);
         objectInstance.transform.localPosition = Vector3.zero;
 
         isEmpty = false;
+    }
+
+    public SpawnableObject Pop()
+    {
+        isEmpty = true;
+
+        SpawnableObject objectToReturn = objectInThisPosition;
+        objectInThisPosition = null;
+
+        return objectToReturn;
     }
 }
