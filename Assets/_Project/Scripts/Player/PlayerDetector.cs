@@ -24,6 +24,22 @@ public class PlayerDetector : MonoBehaviour
         {
             HandleObjectDropZone(dropZone);
         }
+        else if (other.TryGetComponent(out TableSet table))
+        {
+            HandleTableTriggered(table);
+        }
+    }
+
+    private void HandleTableTriggered(TableSet table)
+    {
+        if (!table.IsDirty) 
+            return;
+        if (!TryGetComponent(out HoldUsedObjectAbility holdUsedObjectAbility))
+            return;
+        if (!holdUsedObjectAbility.CanCollectUsedObjects())
+            return;
+
+        table.GetCleanedBy(holdUsedObjectAbility);
     }
 
     private void HandleObjectDropZone(ObjectDropZone dropZone)

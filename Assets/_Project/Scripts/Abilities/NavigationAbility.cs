@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -53,5 +54,18 @@ public class NavigationAbility : MonoBehaviour
             return false;
 
         return true;
+    }
+
+    public void Disable()
+    {
+        agent.enabled = false;
+    }
+
+    public void Enable()
+    {
+        //if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 0.5f, NavMesh.AllAreas))
+        //    agent.Warp(hit.position);
+
+        agent.enabled = true;
     }
 }

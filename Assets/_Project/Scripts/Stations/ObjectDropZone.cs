@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class ObjectDropZone : MonoBehaviour
@@ -6,7 +5,12 @@ public class ObjectDropZone : MonoBehaviour
     [Header("Elements")]
     [SerializeField] private Plateau plateau;
 
+    [Header("Settings")]
+    [SerializeField] private Transform workerTargetPoint;
+
+    public Vector3 WorkerTargetPosition => workerTargetPoint.position;
     public bool IsFull => plateau.IsFull;
+    public int ObjectCount => plateau.GetObjectCountInPlateau();
 
     public ObjectPosition GetFirstObjectPosition()
     {

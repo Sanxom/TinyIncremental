@@ -62,6 +62,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5214563767363628875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6284518722736817695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 612076616732134336}
+  m_Layer: 0
+  m_Name: Worker Target Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &612076616732134336
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6284518722736817695}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4269709611865616712}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7519974012571731058
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,6 +217,8 @@ GameObject:
   - component: {fileID: 7514368840587275903}
   - component: {fileID: 2452422208201983610}
   - component: {fileID: 846809355476480770}
+  - component: {fileID: 2139429224283954609}
+  - component: {fileID: 8264097089282098134}
   m_Layer: 0
   m_Name: Coffee Cashier Station
   m_TagString: Untagged
@@ -249,7 +282,7 @@ MonoBehaviour:
   customerSpawnPoint: {fileID: 3453601888358243286}
   queueStartPoint: {fileID: 8649118845547019944}
   queueSpacing: {x: 1, y: 0, z: 0}
-  minMaxCustomerObjectCount: {x: 1, y: 3}
+  minMaxCustomerObjectCount: {x: 4, y: 4}
   maxCustomersAllowed: 10
 --- !u!114 &846809355476480770
 MonoBehaviour:
@@ -264,7 +297,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectServingStation
   dropZone: {fileID: 4933163431502895950}
+  tableManager: {fileID: 0}
+  taskRequester: {fileID: 8264097089282098134}
+  objectServedPrefab: {fileID: 8248709061985094886, guid: 502bec86ba7b3f5468744002ac7de87f, type: 3}
   servingDelay: 0.3
+  minObjectsToRequestFill: 4
+  requestCheckDelay: 1
+--- !u!114 &2139429224283954609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7816590099268465759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08673b6be5830ec479ecd0c5eeacf2b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GuidGenerator
+  guid: 9887a675-f97c-4f8d-830b-2f86abf3a5d0
+--- !u!114 &8264097089282098134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7816590099268465759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69afbf8c2c579f742b88dd8d302507e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TaskRequester
 --- !u!1 &9041565983435951455
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +360,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6743461696973951682}
+  - {fileID: 612076616732134336}
   m_Father: {fileID: 5214563767363628875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &632559455349942091
@@ -318,8 +382,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.2, y: 1, z: 1.37}
-  m_Center: {x: -0.100000024, y: 0, z: 0.55}
+  m_Size: {x: 2.2, y: 1, z: 1.6386286}
+  m_Center: {x: -0.100000024, y: 0, z: 0.4156857}
 --- !u!114 &4933163431502895950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectDropZone
   plateau: {fileID: 6211787822185028796}
+  workerTargetPoint: {fileID: 612076616732134336}
 --- !u!1001 &1185210066469264753
 PrefabInstance:
   m_ObjectHideFlags: 0

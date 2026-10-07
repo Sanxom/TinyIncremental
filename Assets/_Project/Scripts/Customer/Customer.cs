@@ -39,6 +39,18 @@ public class Customer : MonoBehaviour
         GoToThen(targetPosition, FaceFinalDirection);
     }
 
+    public SpawnableObject Pop()
+    {
+        SpawnableObject spawnableObject = plateau.Pop();
+        if (spawnableObject == null)
+            return null;
+
+        if (plateau.IsEmpty)
+            plateau.gameObject.SetActive(false);
+
+        return spawnableObject;
+    }
+
     public bool NeedsMoreObjects()
     {
         return objectTakenCount < objectNeededCount;
@@ -49,10 +61,18 @@ public class Customer : MonoBehaviour
         plateau.gameObject.SetActive(true);
         plateau.Push(objectToServe);
 
+        // customerAnimator.ManageAnimations(Vector3.zero);
+
         objectTakenCount++;
     }
 
-    private void GoTo(Vector3 targetPosition)
+    public void GoToThen(Vector3 targetPosition, Action callback)
+    {
+        reachedDestinationCallback = callback;
+        GoTo(targetPosition);
+    }
+
+    public void GoTo(Vector3 targetPosition)
     {
         bool canReachDestination = navigationAbility.TryGoTo(targetPosition);
 
@@ -60,10 +80,28 @@ public class Customer : MonoBehaviour
             StartWalkingState();
     }
 
-    private void GoToThen(Vector3 targetPosition, Action callback)
+    public void SitDown(Vector3 targetPosition, Vector3 facingDirection)
     {
-        reachedDestinationCallback = callback;
-        GoTo(targetPosition);
+        DisableNavigation();
+
+        transform.position = targetPosition.With(y:0);
+        StartDrinkingState(facingDirection);
+    }
+
+    private void StartDrinkingState(Vector3 facingDirection)
+    {
+        state = State.Drinking;
+        customerAnimator.PlaySitDownAnimation(facingDirection);
+    }
+
+    private void DisableNavigation()
+    {
+        navigationAbility.Disable();
+    }
+
+    private void EnableNavigation()
+    {
+        navigationAbility.Enable();
     }
 
     private void HandleStateMachine()
@@ -131,5 +169,11 @@ public class Customer : MonoBehaviour
     {
         state = State.Walking;
         customerAnimator.StartWalking();
+    }
+
+    public void GetUpAndGo(Vector3 position, Action reachedDestinationCallback)
+    {
+        EnableNavigation();
+        GoToThen(position, reachedDestinationCallback);
     }
 }

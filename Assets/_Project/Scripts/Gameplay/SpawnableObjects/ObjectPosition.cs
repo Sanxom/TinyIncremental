@@ -12,6 +12,8 @@ public class ObjectPosition : MonoBehaviour
     private bool isEmpty;
     public bool IsEmpty => isEmpty;
 
+    public bool IsObjectVisible => objectInThisPosition != null && objectInThisPosition.IsVisible;
+
     private void Awake()
     {
         isEmpty = true;
@@ -35,5 +37,20 @@ public class ObjectPosition : MonoBehaviour
         objectInThisPosition = null;
 
         return objectToReturn;
+    }
+
+    public void DisplayObject()
+    {
+        objectInThisPosition.Display();
+    }
+
+    public void HideObject()
+    {
+        objectInThisPosition.Hide();
+    }
+
+    public void MarkAsDirty()
+    {
+        objectInThisPosition.MarkAsDirty();
     }
 }

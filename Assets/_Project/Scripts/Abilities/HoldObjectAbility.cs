@@ -18,7 +18,8 @@ public class HoldObjectAbility : MonoBehaviour
 
     public void HandleInObjectSpawnerStation(SpawnerStation spawnerStation)
     {
-        if (plateau.IsFull) return;
+        // TODO: Mason Added || plateau.IsDirty
+        if (plateau.IsFull || plateau.IsDirty) return;
 
         if (grabObjectTimer < canGrabObjectDelay)
         {
@@ -39,6 +40,7 @@ public class HoldObjectAbility : MonoBehaviour
     public void HandleInDropZone(ObjectDropZone dropZone)
     {
         if (!plateau.gameObject.activeInHierarchy) return;
+        if (plateau.IsDirty) return;
         if (dropZone.IsFull) return;
 
         if (dropObjectTimer < canDropObjectDelay)

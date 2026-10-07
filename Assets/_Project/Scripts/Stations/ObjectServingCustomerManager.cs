@@ -38,6 +38,19 @@ public class ObjectServingCustomerManager : MonoBehaviour
         return distance <= 0.1f;
     }
 
+    public void Dequeue()
+    {
+        customerQueue.Dequeue();
+
+        for (int i = 0; i < customerQueue.Count; i++)
+            customerQueue.ToArray()[i].GoTo(GetTargetCustomerPosition(i));
+    }
+
+    private Vector3 GetTargetCustomerPosition(int index)
+    {
+        return queueStartPoint.position + queueSpacing * index;
+    }
+
     private Vector3 GetLastCustomerPosition()
     {
         return queueStartPoint.position + queueSpacing * (customerQueue.Count - 1);

@@ -7,6 +7,7 @@ public class CustomerManager : MonoBehaviour
 
     [Header("Elements")]
     [SerializeField] private Customer customerPrefab;
+    [SerializeField] private Transform customerExitPoint;
 
     private void Awake()
     {
@@ -20,5 +21,16 @@ public class CustomerManager : MonoBehaviour
     {
         // TODO: return an ObjectPooled Customer instead
         return Instantiate(customerPrefab, spawnPosition, Quaternion.identity, transform);
+    }
+
+    public void HandleForcingCustomerToLeave(Customer customer)
+    {
+        customer.GetUpAndGo(customerExitPoint.position, () => HandleCustomerReachedExitPoint(customer));
+    }
+
+    private void HandleCustomerReachedExitPoint(Customer customer)
+    {
+        // TODO: Return Customer to ObjectPool here instead
+        Destroy(customer.gameObject);
     }
 }

@@ -8,6 +8,7 @@ public class CustomerAnimator : MonoBehaviour
     private static readonly int WalkWithPlateauHash = Animator.StringToHash("WalkWithPlateau");
     private static readonly int WalkHash = Animator.StringToHash("Walk");
     private static readonly int MoveSpeedHash = Animator.StringToHash("moveSpeed");
+    private static readonly int SitHash = Animator.StringToHash("Sit");
 
     [Header("Elements")]
     [SerializeField] private Animator animator;
@@ -85,5 +86,12 @@ public class CustomerAnimator : MonoBehaviour
     public void Stop()
     {
         lastVelocity = Vector3.zero;
+    }
+
+    public void PlaySitDownAnimation(Vector3 facingDirection)
+    {
+        isSitting = true;
+        animator.Play(SitHash);
+        Face(facingDirection);
     }
 }
