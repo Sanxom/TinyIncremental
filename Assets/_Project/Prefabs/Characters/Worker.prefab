@@ -9,10 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5292027456483529125}
+  - component: {fileID: 1318292921806623551}
   - component: {fileID: 825189656498680332}
   - component: {fileID: 6976210098014947043}
   - component: {fileID: 8861723133504347196}
   - component: {fileID: 5935212858694376160}
+  - component: {fileID: 2411076058517162110}
+  - component: {fileID: 6087705288843101679}
+  - component: {fileID: 2909672992737826160}
   m_Layer: 0
   m_Name: Worker
   m_TagString: Untagged
@@ -36,6 +40,31 @@ Transform:
   - {fileID: 6196482386555593433}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!143 &1318292921806623551
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7389700602525970917}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.6
+  m_Radius: 0.3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.01
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &825189656498680332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,7 +91,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.35
-  m_Speed: 3.5
+  m_Speed: 2
   m_Acceleration: 800
   avoidancePriority: 50
   m_AngularSpeed: 0
@@ -73,7 +102,7 @@ NavMeshAgent:
   m_Height: 1.82
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &8861723133504347196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +127,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9c7d630dcb70b4ebc7e0e2105785dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Worker
+  animator: {fileID: 825189656498680332}
+--- !u!114 &2411076058517162110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7389700602525970917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1f7c42afd65d9498523e8451ebd194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDetector
+  navigationAbility: {fileID: 8861723133504347196}
+--- !u!114 &6087705288843101679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7389700602525970917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07111a826db54b4489f7239d35ed1476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoldObjectAbility
+  plateau: {fileID: 8165577599934194101}
+  canGrabObjectDelay: 0.2
+  canDropObjectDelay: 0.1
+--- !u!114 &2909672992737826160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7389700602525970917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7db4b943cc7944f966a7b2805221b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoldUsedObjectAbility
+  plateau: {fileID: 8165577599934194101}
 --- !u!1001 &319546228565204269
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -317,6 +388,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 3b655c62fbf698e48994435a64f60899, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 581d6c79bdc7576459c10baf4a5816f0, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7535418713881831788, guid: 581d6c79bdc7576459c10baf4a5816f0, type: 3}
       propertyPath: m_Name
       value: Apron

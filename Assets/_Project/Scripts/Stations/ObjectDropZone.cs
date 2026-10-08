@@ -8,6 +8,7 @@ public class ObjectDropZone : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private Transform workerTargetPoint;
 
+    public Transform WorkerTargetPoint => workerTargetPoint;
     public Vector3 WorkerTargetPosition => workerTargetPoint.position;
     public bool IsFull => plateau.IsFull;
     public int ObjectCount => plateau.GetObjectCountInPlateau();

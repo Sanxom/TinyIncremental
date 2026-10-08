@@ -1,13 +1,19 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class TableManager : MonoBehaviour
 {
+    [Header("Events")]
+    public static Action<TableSet, HoldUsedObjectAbility> OnTableCleaned;
+
     [Header("Elements")]
+    [SerializeField] private TaskRequester taskRequester;
     private List<TableSet> tableList;
+
+    [Header("Settings")]
+    private List<TableSet> dirtyTableList = new();
 
     private void Awake()
     {
@@ -17,6 +23,20 @@ public class TableManager : MonoBehaviour
     public bool IsAnyTableAvailable()
     {
         return GetFirstCleanEmptyTable() != null;
+    }
+
+    public void RemoveDirtyTable(TableSet table, HoldUsedObjectAbility holdUsedObjectAbility)
+    {
+        dirtyTableList.Remove(table);
+        taskRequester.ClearRequest(new CleanTableRequest(table.GUID, table));
+
+        OnTableCleaned?.Invoke(table, holdUsedObjectAbility);
+    }
+
+    public void PushDirtyTable(TableSet table)
+    {
+        dirtyTableList.Add(table);
+        taskRequester.CreateTaskRequest(new CleanTableRequest(table.GUID, table));
     }
 
     public void HandleCustomerServed(Customer customerToServe)

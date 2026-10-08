@@ -11,7 +11,7 @@ public class Customer : MonoBehaviour
     }
 
     [Header("Components")]
-    [SerializeField] private CustomerAnimator customerAnimator;
+    [SerializeField] private NPCAnimator customerAnimator;
     [SerializeField] private NavigationAbility navigationAbility;
     [SerializeField] private Plateau plateau;
 
@@ -23,14 +23,11 @@ public class Customer : MonoBehaviour
     public int ObjectTakenCount => objectTakenCount;
 
     [Header("Actions")]
-    private Action reachedDestinationCallback;
+    private Action OnReachDestination;
 
     private State state;
 
-    private void Update()
-    {
-        HandleStateMachine();
-    }
+    private void Update() => HandleStateMachine();
 
     public void Init(int objectNeededCount, Vector3 targetPosition, Vector3 finalFacingDirection)
     {
@@ -51,24 +48,19 @@ public class Customer : MonoBehaviour
         return spawnableObject;
     }
 
-    public bool NeedsMoreObjects()
-    {
-        return objectTakenCount < objectNeededCount;
-    }
+    public bool NeedsMoreObjects() => objectTakenCount < objectNeededCount;
 
     public void CollectObject(SpawnableObject objectToServe)
     {
         plateau.gameObject.SetActive(true);
         plateau.Push(objectToServe);
 
-        // customerAnimator.ManageAnimations(Vector3.zero);
-
         objectTakenCount++;
     }
 
     public void GoToThen(Vector3 targetPosition, Action callback)
     {
-        reachedDestinationCallback = callback;
+        OnReachDestination = callback;
         GoTo(targetPosition);
     }
 
@@ -94,15 +86,9 @@ public class Customer : MonoBehaviour
         customerAnimator.PlaySitDownAnimation(facingDirection);
     }
 
-    private void DisableNavigation()
-    {
-        navigationAbility.Disable();
-    }
+    private void DisableNavigation() => navigationAbility.Disable();
 
-    private void EnableNavigation()
-    {
-        navigationAbility.Enable();
-    }
+    private void EnableNavigation() => navigationAbility.Enable();
 
     private void HandleStateMachine()
     {
@@ -122,9 +108,7 @@ public class Customer : MonoBehaviour
     private void HandleIdleState()
     {
         if (navigationAbility.IsMoving())
-        {
             StartWalkingState();
-        }
     }
 
     private void HandleWalkingState()
@@ -136,9 +120,7 @@ public class Customer : MonoBehaviour
         }
 
         if (navigationAbility.IsMoving())
-        {
             customerAnimator.ManageAnimations(navigationAbility.Velocity);
-        }
         else
             StartIdleState();
     }
@@ -147,17 +129,14 @@ public class Customer : MonoBehaviour
     {
         StartIdleState();
 
-        if (reachedDestinationCallback != null)
+        if (OnReachDestination != null)
         {
-            reachedDestinationCallback?.Invoke();
-            reachedDestinationCallback = null;
+            OnReachDestination?.Invoke();
+            OnReachDestination = null;
         }
     }
 
-    private void FaceFinalDirection()
-    {
-        customerAnimator.Face(finalFacingDirection);
-    }
+    private void FaceFinalDirection() => customerAnimator.Face(finalFacingDirection);
 
     private void StartIdleState()
     {

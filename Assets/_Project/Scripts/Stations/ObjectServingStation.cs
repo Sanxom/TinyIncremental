@@ -13,11 +13,12 @@ public class ObjectServingStation : MonoBehaviour
     [SerializeField] private ObjectDropZone dropZone;
     [SerializeField] private TableManager tableManager;
     [SerializeField] private TaskRequester taskRequester;
+    [SerializeField] private Transform workerServingTargetPoint;
 
     [Header("Settings")]
     [SerializeField] private SpawnableObject objectServedPrefab;
     [SerializeField] private float servingDelay;
-    [SerializeField] private int minObjectsToRequestFill = 4;
+    [SerializeField] private int minObjectsToRequestFillOrServe = 4;
     private float servingTimer;
     private int workerCount;
 
@@ -71,7 +72,12 @@ public class ObjectServingStation : MonoBehaviour
 
     private bool HasEnoughObjects()
     {
-        return dropZone.ObjectCount >= minObjectsToRequestFill;
+        return dropZone.ObjectCount >= minObjectsToRequestFillOrServe;
+    }
+
+    private bool CanSendServeCustomersRequest()
+    {
+        return workerCount <= 0 && objectServingCustomerManager.IsCustomerReadyToTakeObject() && HasEnoughObjects();
     }
 
     private void DequeueCustomer(Customer customerToServe)
@@ -98,13 +104,11 @@ public class ObjectServingStation : MonoBehaviour
             return;
 
         if (!objectServingCustomerManager.PeekFirstCustomer().NeedsMoreObjects())
+        {
+            DequeueCustomer(objectServingCustomerManager.PeekFirstCustomer());
+            servingTimer = 0f;
             return;
-
-        // TODO: Mason added this: it fixes the problem with the above where the
-        // 3rd Customer won't go to an open table anymore if they have all the objects they need.
-        // It's not added in the lectures yet, so I'm hesitant to include it in case it causes other errors
-        //if (objectServingCustomerManager.PeekFirstCustomer().NeedsMoreObjects() && !tableManager.IsAnyTableAvailable())
-        //    return;
+        }
 
         ServeObject();
     }
@@ -143,7 +147,14 @@ public class ObjectServingStation : MonoBehaviour
         if (!HasEnoughObjects())
         {
             // Emit request
-            taskRequester.CreateTaskRequest(new FillStationPlateauRequest(guidGenerator.GUID, objectServedPrefab, dropZone.WorkerTargetPosition));
+            taskRequester.CreateTaskRequest(
+                new FillStationPlateauRequest(guidGenerator.GUID, objectServedPrefab, dropZone.WorkerTargetPosition));
+        }
+
+        if (CanSendServeCustomersRequest())
+        {
+            taskRequester.CreateTaskRequest(
+                new ServeCustomersRequest(guidGenerator.GUID, workerServingTargetPoint.position, dropZone));
         }
 
         // Can we serve Customers?

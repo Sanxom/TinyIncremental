@@ -1,14 +1,19 @@
+using System;
 using UnityEngine;
 
-public class SpawnerStation : MonoBehaviour
+public class ObjectSpawnerStation : MonoBehaviour
 {
     [Header("Elements")]
     [SerializeField] private SpawnableObject spawnableObjectPrefab;
     [SerializeField] private Plateau plateau;
+    [SerializeField] private Transform workerTargetPoint;
 
     [Header("Settings")]
     [SerializeField] private float spawnDelay;
     private float spawnTimer;
+
+    public Type ObjectType => spawnableObjectPrefab.GetType();
+    public Vector3 WorkerTargetPosition => workerTargetPoint.position;
 
     private void Update()
     {

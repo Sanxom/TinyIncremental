@@ -11,12 +11,17 @@ public class HoldObjectAbility : MonoBehaviour
     private float grabObjectTimer;
     private float dropObjectTimer;
 
+    public bool IsPlateauFull => plateau.IsFull;
+    public bool IsPlateauEmpty => plateau.IsEmpty;
+    public bool IsPlateauDirty => plateau.IsDirty;
+    public bool IsPlateauActive => plateau.gameObject.activeInHierarchy;
+
     private void Awake()
     {
         grabObjectTimer = canGrabObjectDelay;
     }
 
-    public void HandleInObjectSpawnerStation(SpawnerStation spawnerStation)
+    public void HandleInObjectSpawnerStation(ObjectSpawnerStation spawnerStation)
     {
         // TODO: Mason Added || plateau.IsDirty
         if (plateau.IsFull || plateau.IsDirty) return;

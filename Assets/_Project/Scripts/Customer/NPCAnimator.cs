@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class CustomerAnimator : MonoBehaviour
+public class NPCAnimator : MonoBehaviour
 {
     private static readonly int IdleWithPlateauHash = Animator.StringToHash("IdleWithPlateau");
     private static readonly int IdleHash = Animator.StringToHash("Idle");

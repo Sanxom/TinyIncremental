@@ -16,8 +16,8 @@ public class Plateau : MonoBehaviour
     private bool isDirty;
 
     public bool IsFull => isFull;
-    public bool IsDirty => isDirty;
     public bool IsEmpty => GetFirstObjectPosition() == null;
+    public bool IsDirty => isDirty;
 
     private void Awake()
     {
@@ -120,6 +120,9 @@ public class Plateau : MonoBehaviour
                 }
             }
         }
+
+        if (objectPositionsParent.childCount < maxCapacity)
+            CreateNewObjectPosition();
 
         lastObjectPushed = objectInstance;
     }

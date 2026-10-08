@@ -109,6 +109,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6281354970555501827}
     m_Modifications:
+    - target: {fileID: 4662514322504751574, guid: 8eabb321bf1a06041b63601ca222f1dc, type: 3}
+      propertyPath: maxCapacity
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 4836847896390220147, guid: 8eabb321bf1a06041b63601ca222f1dc, type: 3}
       propertyPath: m_Name
       value: Plateau

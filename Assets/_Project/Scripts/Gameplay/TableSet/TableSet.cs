@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(GuidGenerator))]
 public class TableSet : MonoBehaviour
 {
+    [Header("Components")]
+    private GuidGenerator guidGenerator;
+
     [Header("Elements")]
     [SerializeField] private Plateau plateau;
+    [SerializeField] private Transform workerTargetPoint;
     private TableManager tableManager;
     private List<Chair> chairList;
 
@@ -15,18 +20,22 @@ public class TableSet : MonoBehaviour
     private int incomingCustomers = 0;
     private bool isFull;
     private bool isDirty;
-    public bool IsFull => isFull;
-    public bool IsDirty => isDirty;
 
     [Header("Timer Settings")]
     private float timer;
     private float objectTimer;
     private int numObjectUsed;
 
+    public Vector3 WorkerTargetPosition => workerTargetPoint.position;
+    public string GUID => guidGenerator.GUID;
+    public bool IsFull => isFull;
+    public bool IsDirty => isDirty;
+
     private void Awake()
     {
         isFull = false;
         chairList = GetComponentsInChildren<Chair>().ToList();
+        guidGenerator = GetComponent<GuidGenerator>();
     }
 
     private void Update()
@@ -71,6 +80,8 @@ public class TableSet : MonoBehaviour
 
         for (int i = 0; i < chairList.Count; i++)
             chairList[i].FixChairs();
+
+        tableManager.RemoveDirtyTable(this, holdUsedObjectAbility);
 
         isDirty = false;
         isFull = false;
@@ -152,6 +163,8 @@ public class TableSet : MonoBehaviour
         }
 
         isDirty = true;
+
+        tableManager.PushDirtyTable(this);
 
         plateau.MarkAsDirty();
 

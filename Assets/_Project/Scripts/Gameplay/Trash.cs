@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrashCan : MonoBehaviour
+public class Trash : MonoBehaviour
 {
+    [Header("Elements")]
+    [SerializeField] private Transform workerTargetPoint;
+
+    public Vector3 WorkerTargetPosition => workerTargetPoint.position;
+
     private void OnTriggerEnter(Collider other)
     {
         if (!other.TryGetComponent(out HoldUsedObjectAbility holdUsedObjectAbility))

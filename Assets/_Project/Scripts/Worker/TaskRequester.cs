@@ -5,21 +5,30 @@ using UnityEngine;
 
 public class TaskRequester : MonoBehaviour
 {
-    private List<TaskRequest> requestList = new();
+    [SerializeReference] private List<TaskRequest> requestList = new();
 
     public void CreateTaskRequest(TaskRequest request)
     {
         request.sender = this;
-
-        print($"TaskRequester: Received a request: {request.GetType()}");
 
         foreach (TaskRequest r in requestList)
             if (r.GUID == request.GUID && r.GetType() == request.GetType())
                 return;
 
         requestList.Add(request);
-        print($"TaskRequester: Registered the request with {request.GetType()}");
 
         WorkerManager.Instance.RegisterRequest(request);
+    }
+
+    public void ClearRequest(TaskRequest request)
+    {
+        for (int i = requestList.Count - 1; i >= 0; i--)
+        {
+            if (requestList[i].GUID == request.GUID && requestList[i].GetType() == request.GetType())
+            {
+                requestList.RemoveAt(i);
+                break;
+            }
+        }
     }
 }

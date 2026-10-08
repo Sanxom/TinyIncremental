@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerDetector : MonoBehaviour
 {
     [Header("Components")]
+    [SerializeField] private NavigationAbility navigationAbility;
     private HoldObjectAbility holdObjectAbility;
 
     private void Awake()
@@ -16,7 +17,10 @@ public class PlayerDetector : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.TryGetComponent(out SpawnerStation spawnerStation))
+        if (navigationAbility != null && navigationAbility.IsMoving())
+            return;
+
+        if (other.TryGetComponent(out ObjectSpawnerStation spawnerStation))
         {
             HandleObjectSpawnerStation(spawnerStation);
         }
@@ -47,7 +51,7 @@ public class PlayerDetector : MonoBehaviour
         holdObjectAbility.HandleInDropZone(dropZone);
     }
 
-    private void HandleObjectSpawnerStation(SpawnerStation spawnerStation)
+    private void HandleObjectSpawnerStation(ObjectSpawnerStation spawnerStation)
     {
         holdObjectAbility.HandleInObjectSpawnerStation(spawnerStation);
     }
