@@ -5831,6 +5831,14 @@ PrefabInstance:
       propertyPath: tableManager
       value: 
       objectReference: {fileID: 1328559899}
+    - target: {fileID: 3355041281832222634, guid: b131fea61a1a2864abccaf32aab54dce, type: 3}
+      propertyPath: gridSize.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3355041281832222634, guid: b131fea61a1a2864abccaf32aab54dce, type: 3}
+      propertyPath: gridSize.y
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5214563767363628875, guid: b131fea61a1a2864abccaf32aab54dce, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.37
@@ -5870,6 +5878,10 @@ PrefabInstance:
     - target: {fileID: 5214563767363628875, guid: b131fea61a1a2864abccaf32aab54dce, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5766011008618713062, guid: b131fea61a1a2864abccaf32aab54dce, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.35
       objectReference: {fileID: 0}
     - target: {fileID: 7816590099268465759, guid: b131fea61a1a2864abccaf32aab54dce, type: 3}
       propertyPath: m_Name
