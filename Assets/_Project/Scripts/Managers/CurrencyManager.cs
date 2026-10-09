@@ -5,7 +5,7 @@ using System;
 
 public class CurrencyManager : MonoBehaviour, IWantToBeSaved
 {
-    public static CurrencyManager instance;
+    public static CurrencyManager Instance { get; private set; }
 
     [Header(" Settings ")]
     private bool shouldSave;
@@ -19,8 +19,8 @@ public class CurrencyManager : MonoBehaviour, IWantToBeSaved
 
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
         else
             Destroy(gameObject);
 

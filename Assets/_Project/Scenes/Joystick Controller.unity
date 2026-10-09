@@ -932,6 +932,38 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!1 &367638103
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 367638104}
+  m_Layer: 0
+  m_Name: --- UTILITY ---
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &367638104
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367638103}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1851261509}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &376229101
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4640,6 +4672,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1827614866}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1851261507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1851261509}
+  - component: {fileID: 1851261508}
+  m_Layer: 0
+  m_Name: ArcAnimator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1851261508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851261507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec9c3d9d6250d743813e1bb7bd452dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArcAnimator
+--- !u!4 &1851261509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851261507}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 367638104}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1887696875
 GameObject:
   m_ObjectHideFlags: 0
@@ -5831,14 +5907,6 @@ PrefabInstance:
       propertyPath: tableManager
       value: 
       objectReference: {fileID: 1328559899}
-    - target: {fileID: 3355041281832222634, guid: b131fea61a1a2864abccaf32aab54dce, type: 3}
-      propertyPath: gridSize.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3355041281832222634, guid: b131fea61a1a2864abccaf32aab54dce, type: 3}
-      propertyPath: gridSize.y
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 5214563767363628875, guid: b131fea61a1a2864abccaf32aab54dce, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.37
@@ -5878,10 +5946,6 @@ PrefabInstance:
     - target: {fileID: 5214563767363628875, guid: b131fea61a1a2864abccaf32aab54dce, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5766011008618713062, guid: b131fea61a1a2864abccaf32aab54dce, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.35
       objectReference: {fileID: 0}
     - target: {fileID: 7816590099268465759, guid: b131fea61a1a2864abccaf32aab54dce, type: 3}
       propertyPath: m_Name
@@ -6127,6 +6191,7 @@ SceneRoots:
   - {fileID: 1702908278}
   - {fileID: 1305158659}
   - {fileID: 2124703505}
+  - {fileID: 367638104}
   - {fileID: 1519690855}
   - {fileID: 1324053134}
   - {fileID: 321522464}

@@ -14,11 +14,13 @@ public class ObjectServingStation : MonoBehaviour
     [SerializeField] private TableManager tableManager;
     [SerializeField] private TaskRequester taskRequester;
     [SerializeField] private Transform workerServingTargetPoint;
+    [SerializeField] private CashPile cashPile;
 
     [Header("Settings")]
     [SerializeField] private SpawnableObject objectServedPrefab;
     [SerializeField] private float servingDelay;
     [SerializeField] private int minObjectsToRequestFillOrServe = 4;
+    [SerializeField] private int amountOfCashToGenerate = 2;
     private float servingTimer;
     private int workerCount;
 
@@ -118,6 +120,9 @@ public class ObjectServingStation : MonoBehaviour
         servingTimer = 0f;
 
         Customer customerToServe = objectServingCustomerManager.PeekFirstCustomer();
+
+        cashPile.GenerateCash(amountOfCashToGenerate);
+
         SpawnableObject objectToServe = Pop();
 
         customerToServe.CollectObject(objectToServe);

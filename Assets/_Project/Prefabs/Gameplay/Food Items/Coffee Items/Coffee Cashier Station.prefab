@@ -333,9 +333,11 @@ MonoBehaviour:
   tableManager: {fileID: 0}
   taskRequester: {fileID: 8264097089282098134}
   workerServingTargetPoint: {fileID: 536691682339980304}
+  cashPile: {fileID: 3355041281832222634}
   objectServedPrefab: {fileID: 8248709061985094886, guid: 502bec86ba7b3f5468744002ac7de87f, type: 3}
   servingDelay: 0.3
   minObjectsToRequestFillOrServe: 4
+  amountOfCashToGenerate: 2
   requestCheckDelay: 1
 --- !u!114 &2139429224283954609
 MonoBehaviour:
@@ -458,7 +460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6842626745241152292, guid: 35689645f6aab84439fca1b7f089ce41, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.8620899
+      value: 2.35
       objectReference: {fileID: 0}
     - target: {fileID: 6842626745241152292, guid: 35689645f6aab84439fca1b7f089ce41, type: 3}
       propertyPath: m_LocalRotation.w
@@ -493,6 +495,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35689645f6aab84439fca1b7f089ce41, type: 3}
+--- !u!114 &3355041281832222634 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2341477039438764904, guid: 35689645f6aab84439fca1b7f089ce41, type: 3}
+  m_PrefabInstance: {fileID: 1076668943316968642}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42de3601dd194f84aa72b9e2158f967c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CashPile
 --- !u!4 &5766011008618713062 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6842626745241152292, guid: 35689645f6aab84439fca1b7f089ce41, type: 3}
