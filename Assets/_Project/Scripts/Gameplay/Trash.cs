@@ -18,8 +18,13 @@ public class Trash : MonoBehaviour
 
         SpawnableObject[] usedObjectArray = holdUsedObjectAbility.PopAll();
 
-        // TODO: Return usedObjects to their ObjectPool instead
         for (int i = usedObjectArray.Length - 1; i >= 0; i--)
-            Destroy(usedObjectArray[i].gameObject);
+        {
+            if (usedObjectArray[i].IsDirty)
+                usedObjectArray[i].MarkAsClean();
+
+            ObjectPooler objectPool = usedObjectArray[i].GetObjectPool();
+            objectPool.ReturnObjectToPool(usedObjectArray[i].gameObject);
+        }
     }
 }

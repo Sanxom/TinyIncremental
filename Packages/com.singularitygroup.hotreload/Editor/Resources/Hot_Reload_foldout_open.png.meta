@@ -1,12 +1,5 @@
 fileFormatVersion: 2
 guid: 4b7efc0ab40ddb750a17f65ecdcdbe95
-AssetOrigin:
-  serializedVersion: 1
-  productId: 254358
-  packageName: Hot Reload | Edit Code Without Compiling
-  packageVersion: 1.13.24
-  assetPath: Packages/com.singularitygroup.hotreload/Editor/Resources/Hot_Reload_foldout_open.png
-  uploadId: 991576
 TextureImporter:
   internalIDToNameTable:
   - first:

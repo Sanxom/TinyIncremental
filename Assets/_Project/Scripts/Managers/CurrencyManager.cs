@@ -77,9 +77,9 @@ public class CurrencyManager : MonoBehaviour, IWantToBeSaved
         // We can cache these if we want more performance
         CurrencyText[] currencyTexts = 
             FindObjectsByType<CurrencyText>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-   
+
         foreach (CurrencyText ct in currencyTexts)
-            ct.GetComponent<TextMeshProUGUI>().text = Currency.ToString();
+            ct.GetComponent<TextMeshProUGUI>().text = $"{Currency}";
     }
 
     private void SaveIfNeeded()

@@ -6,6 +6,7 @@ public class CustomerManager : MonoBehaviour
     public static CustomerManager Instance { get; private set; }
 
     [Header("Elements")]
+    [SerializeField] private ObjectPooler customerObjectPool;
     [SerializeField] private Customer customerPrefab;
     [SerializeField] private Transform customerExitPoint;
 
@@ -19,8 +20,12 @@ public class CustomerManager : MonoBehaviour
 
     public Customer Pop(Vector3 spawnPosition)
     {
-        // TODO: return an ObjectPooled Customer instead
-        return Instantiate(customerPrefab, spawnPosition, Quaternion.identity, transform);
+        GameObject customerObject = customerObjectPool.GetPooledObject();
+        Customer customer = customerObject.GetComponent<Customer>();
+        customerObject.transform.SetParent(transform);
+        customerObject.transform.SetLocalPositionAndRotation(spawnPosition, Quaternion.identity);
+        customerObject.SetActive(true);
+        return customer;
     }
 
     public void HandleForcingCustomerToLeave(Customer customer)
@@ -30,7 +35,6 @@ public class CustomerManager : MonoBehaviour
 
     private void HandleCustomerReachedExitPoint(Customer customer)
     {
-        // TODO: Return Customer to ObjectPool here instead
-        Destroy(customer.gameObject);
+        customerObjectPool.ReturnObjectToPool(customer.gameObject);
     }
 }

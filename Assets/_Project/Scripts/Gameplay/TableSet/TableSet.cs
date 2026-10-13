@@ -107,13 +107,13 @@ public class TableSet : MonoBehaviour
         for (int i = 0; i < customerToServe.ObjectTakenCount; i++)
         {
             SpawnableObject spawnableObject = customerToServe.Pop();
-
             plateau.gameObject.SetActive(true);
             plateau.Push(spawnableObject);
 
             timer += ConstantFields.TIME_TO_FINISH_AT_TABLE;
         }
 
+        customerToServe.ResetObjectTakenCount();
         incomingCustomers--;
         incomingCustomers = Mathf.Max(0, incomingCustomers);
     }

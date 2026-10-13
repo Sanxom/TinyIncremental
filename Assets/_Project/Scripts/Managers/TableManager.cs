@@ -17,7 +17,7 @@ public class TableManager : MonoBehaviour
 
     private void Awake()
     {
-        tableList = GetComponentsInChildren<TableSet>().ToList();
+        tableList = GetComponentsInChildren<TableSet>(true).ToList();
     }
 
     public bool IsAnyTableAvailable()
@@ -49,15 +49,14 @@ public class TableManager : MonoBehaviour
         }
 
         table.AcceptCustomer(customerToServe, this);
-
-        //Vector3 randomPosition = UnityEngine.Random.onUnitSphere.With(y: 0) * 5;
-        //customerToServe.GoTo(randomPosition);
     }
 
     private TableSet GetFirstCleanEmptyTable()
     {
         for (int i = 0; i < tableList.Count; i++)
         {
+            if (!tableList[i].gameObject.activeInHierarchy)
+                continue;
             if (tableList[i].IsDirty)
                 continue;
             if (tableList[i].IsFull)

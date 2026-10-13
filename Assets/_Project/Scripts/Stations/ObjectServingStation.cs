@@ -147,11 +147,8 @@ public class ObjectServingStation : MonoBehaviour
 
     private void CheckRequests()
     {
-        // Do we have enough objects?
-        // If not, send a fillPlateau request
         if (!HasEnoughObjects())
         {
-            // Emit request
             taskRequester.CreateTaskRequest(
                 new FillStationPlateauRequest(guidGenerator.GUID, objectServedPrefab, dropZone.WorkerTargetPosition));
         }
@@ -161,8 +158,5 @@ public class ObjectServingStation : MonoBehaviour
             taskRequester.CreateTaskRequest(
                 new ServeCustomersRequest(guidGenerator.GUID, workerServingTargetPoint.position, dropZone));
         }
-
-        // Can we serve Customers?
-        // If so, send a serve Customers request
     }
 }

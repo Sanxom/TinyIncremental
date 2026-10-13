@@ -1,12 +1,5 @@
 fileFormatVersion: 2
 guid: 90cf8e542151548c6aa3cba26467e144
-AssetOrigin:
-  serializedVersion: 1
-  productId: 254358
-  packageName: Hot Reload | Edit Code Without Compiling
-  packageVersion: 1.13.24
-  assetPath: Packages/com.singularitygroup.hotreload/Editor/Icon_Player.png
-  uploadId: 991576
 TextureImporter:
   internalIDToNameTable:
   - first:

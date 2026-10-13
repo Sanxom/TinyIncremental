@@ -14,7 +14,6 @@ public class ObjectServingCustomerManager : MonoBehaviour
     private int customerNum = 0;
 
     private Queue<Customer> customerQueue = new();
-    //private Dictionary<int, Customer> customerDictionary = new();
 
     private void Start()
     {
@@ -63,26 +62,11 @@ public class ObjectServingCustomerManager : MonoBehaviour
 
     private void SpawnNewCustomer()
     {
-        #region Dictionary Code Maybe?(Needs a bit of work)
-        //if (customerDictionary.Count >= maxCustomersAllowed) return;
-
-        //customerNum = UnityEngine.Random.Range(1, maxCustomersAllowed + 1);
-
-        //while (!customerDictionary.ContainsKey(customerNum))
-        //    customerNum = UnityEngine.Random.Range(1, maxCustomersAllowed + 1);
-
-        //Customer newCustomer = CustomerManager.Instance.Pop(customerSpawnPosition);
-        //newCustomer.name = $"Customer {customerNum}";
-
-        //customerDictionary.Add(customerNum, newCustomer);
-        #endregion
-
         if (customerQueue.Count >= maxCustomersAllowed) return;
 
         customerNum++;
 
         Customer newCustomer = CustomerManager.Instance.Pop(customerSpawnPoint.position);
-        newCustomer.gameObject.name = $"Customer {customerNum}";
 
         customerQueue.Enqueue(newCustomer);
 

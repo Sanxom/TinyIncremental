@@ -4,6 +4,7 @@ using UnityEngine;
 public class ObjectSpawnerStation : MonoBehaviour
 {
     [Header("Elements")]
+    [SerializeField] private ObjectPooler spawnableObjectPool;
     [SerializeField] private SpawnableObject spawnableObjectPrefab;
     [SerializeField] private Plateau plateau;
     [SerializeField] private Transform workerTargetPoint;
@@ -45,12 +46,15 @@ public class ObjectSpawnerStation : MonoBehaviour
     {
         if (plateau.IsFull) return;
 
-        SpawnFood();
+        SpawnObject();
     }
 
-    private void SpawnFood()
+    private void SpawnObject()
     {
-        SpawnableObject objectInstance = Instantiate(spawnableObjectPrefab, transform);
+        GameObject spawnableGameObject = spawnableObjectPool.GetPooledObject();
+        spawnableGameObject.transform.SetParent(transform);
+        spawnableGameObject.SetActive(true);
+        SpawnableObject objectInstance = spawnableGameObject.GetComponent<SpawnableObject>();
         plateau.Push(objectInstance);
     }
 }

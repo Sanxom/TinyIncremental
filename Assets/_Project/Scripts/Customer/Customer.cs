@@ -39,6 +39,7 @@ public class Customer : MonoBehaviour
     public SpawnableObject Pop()
     {
         SpawnableObject spawnableObject = plateau.Pop();
+
         if (spawnableObject == null)
             return null;
 
@@ -72,6 +73,12 @@ public class Customer : MonoBehaviour
             StartWalkingState();
     }
 
+    public void GetUpAndGo(Vector3 position, Action reachedDestinationCallback)
+    {
+        EnableNavigation();
+        GoToThen(position, reachedDestinationCallback);
+    }
+
     public void SitDown(Vector3 targetPosition, Vector3 facingDirection)
     {
         DisableNavigation();
@@ -84,6 +91,11 @@ public class Customer : MonoBehaviour
     {
         state = State.Drinking;
         customerAnimator.PlaySitDownAnimation(facingDirection);
+    }
+
+    public void ResetObjectTakenCount()
+    {
+        objectTakenCount = 0;
     }
 
     private void DisableNavigation() => navigationAbility.Disable();
@@ -148,11 +160,5 @@ public class Customer : MonoBehaviour
     {
         state = State.Walking;
         customerAnimator.StartWalking();
-    }
-
-    public void GetUpAndGo(Vector3 position, Action reachedDestinationCallback)
-    {
-        EnableNavigation();
-        GoToThen(position, reachedDestinationCallback);
     }
 }

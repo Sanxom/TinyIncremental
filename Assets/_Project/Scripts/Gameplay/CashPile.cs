@@ -2,10 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tabsil.Sijil;
 
-public class CashPile : MonoBehaviour
+[RequireComponent(typeof(GuidGenerator))]
+public class CashPile : MonoBehaviour, IWantToBeSaved
 {
+    [Header("Components")]
+    private GuidGenerator guidGenerator;
+
     [Header("Elements")]
+    [SerializeField] private ObjectPooler cashObjectPool;
     [SerializeField] private GameObject cashPrefab;
 
     [Header("Settings")]
@@ -13,11 +19,20 @@ public class CashPile : MonoBehaviour
     [SerializeField] private Vector3 gridSpacing;
     [SerializeField] private int valuePerCashObject = 2;
     private Vector3[] basePositionArray;
-    private int index;
+    private int cashAmountInPileToBeSaved;
+    private bool isLoaded;
 
     private void Awake()
     {
+        guidGenerator = GetComponent<GuidGenerator>();
+
         StoreBasePositionsInArray();
+    }
+
+    private void Start()
+    {
+        if (!isLoaded)
+            Load();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -27,21 +42,41 @@ public class CashPile : MonoBehaviour
 
         AnimateCashToPlayer(player.transform);
 
-        index = 0;
+        cashAmountInPileToBeSaved = 0;
 
-        // TODO: Save();
+        Save();
     }
 
-    public void GenerateCash(int amount)
+    public void Load()
+    {
+        isLoaded = true;
+
+        if (!Sijil.TryLoad(this, guidGenerator.GUID, out object savedCashPileAmount))
+            return;
+
+        GenerateCash((int)savedCashPileAmount, false);
+    }
+
+    public void Save()
+    {
+        Sijil.Save(this, guidGenerator.GUID, cashAmountInPileToBeSaved);
+    }
+
+    public void GenerateCash(int amount, bool wantToSave = true)
     {
         for (int i = 0; i < amount; i++)
         {
-            // TODO: Create an ObjectPool for the cash, and if you want a different parent for that pool, reference THAT transform here.
-            Vector3 targetPosition = GetTargetGridPosition(i + index);
-            Instantiate(cashPrefab, targetPosition, Quaternion.identity, transform);
+            Vector3 targetPosition = GetTargetGridPosition(i + cashAmountInPileToBeSaved);
+            GameObject cashPrefab = cashObjectPool.GetPooledObject();
+            cashPrefab.transform.SetParent(transform);
+            cashPrefab.transform.SetPositionAndRotation(targetPosition, Quaternion.identity);
+            cashPrefab.SetActive(true);
         }
 
-        index += amount;
+        cashAmountInPileToBeSaved += amount;
+
+        if (wantToSave)
+            Save();
     }
 
     private void AnimateCashToPlayer(Transform playerTransform)
@@ -64,8 +99,7 @@ public class CashPile : MonoBehaviour
     private void HandleCashMovedAlongArc(GameObject cashObject)
     {
         CurrencyManager.Instance.AddCurrency(valuePerCashObject);
-        // TODO: Return this cashObject to its ObjectPool
-        Destroy(cashObject);
+        cashObjectPool.ReturnObjectToPool(cashObject);
     }
 
     private Vector3 GetTargetGridPosition(int index)
