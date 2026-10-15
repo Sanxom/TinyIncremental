@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8646375107024284580}
   - component: {fileID: 4111833076907584355}
   m_Layer: 5
-  m_Name: Upgrade Blob
+  m_Name: Upgrade Pip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 700808841781901127}
   m_Layer: 5
-  m_Name: Player Upgrade Blob
+  m_Name: Player Upgrade Pip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

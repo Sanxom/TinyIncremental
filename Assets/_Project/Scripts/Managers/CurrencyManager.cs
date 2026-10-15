@@ -15,7 +15,7 @@ public class CurrencyManager : MonoBehaviour, IWantToBeSaved
     private const string currencyKey = "currency";
 
     [Header(" Actions ")]
-    public static Action updated;
+    public static Action OnUpdated;
 
     private void Awake()
     {
@@ -43,6 +43,12 @@ public class CurrencyManager : MonoBehaviour, IWantToBeSaved
         AddCurrency(500);    
     }
 
+    [NaughtyAttributes.Button]
+    public void Subtract10Currency()
+    {
+        AddCurrency(-10);
+    }
+
     public void AddCurrency(int amount)
     {
         Currency += amount;
@@ -53,7 +59,7 @@ public class CurrencyManager : MonoBehaviour, IWantToBeSaved
     {
         shouldSave = true;
         UpdateTexts();
-        updated?.Invoke();
+        OnUpdated?.Invoke();
     }
 
     public void UseCurrency(int amount) => AddCurrency(-amount);

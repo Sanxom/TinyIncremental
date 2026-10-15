@@ -51,8 +51,7 @@ public class ObjectSpawnerStation : MonoBehaviour
 
     private void SpawnObject()
     {
-        GameObject spawnableGameObject = spawnableObjectPool.GetPooledObject();
-        spawnableGameObject.transform.SetParent(transform);
+        GameObject spawnableGameObject = spawnableObjectPool.GetPooledObject(transform);
         spawnableGameObject.SetActive(true);
         SpawnableObject objectInstance = spawnableGameObject.GetComponent<SpawnableObject>();
         plateau.Push(objectInstance);

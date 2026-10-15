@@ -20,9 +20,8 @@ public class CustomerManager : MonoBehaviour
 
     public Customer Pop(Vector3 spawnPosition)
     {
-        GameObject customerObject = customerObjectPool.GetPooledObject();
+        GameObject customerObject = customerObjectPool.GetPooledObject(transform);
         Customer customer = customerObject.GetComponent<Customer>();
-        customerObject.transform.SetParent(transform);
         customerObject.transform.SetLocalPositionAndRotation(spawnPosition, Quaternion.identity);
         customerObject.SetActive(true);
         return customer;

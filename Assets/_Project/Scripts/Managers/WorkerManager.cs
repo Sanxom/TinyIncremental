@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class WorkerManager : MonoBehaviour
     [Header("Elements")]
     [SerializeField] private List<Worker> workerList = new();
     [SerializeField] private Trash trash;
+    [SerializeField] private Transform workerSpawnPoint;
+
     [SerializeReference] private List<TaskRequest> pendingRequestList = new();
 
     private void Awake()
@@ -28,6 +31,35 @@ public class WorkerManager : MonoBehaviour
     private void OnDestroy()
     {
         TableManager.OnTableCleaned -= OnTableCleaned;
+    }
+
+    public void SpawnWorker(WorkerDataSO workerDataSO, int workerLevel)
+    {
+        // TODO: Add ObjectPooling for this if you want
+        Worker worker = Instantiate(workerDataSO.WorkerPrefab, workerSpawnPoint.position, Quaternion.identity, transform);
+        worker.name = workerDataSO.Name;
+        workerList.Add(worker);
+        worker.Init(this, workerLevel);
+    }
+
+    public void RegisterRequest(TaskRequest request)
+    {
+        pendingRequestList.Add(request);
+    }
+
+    public void Init(WorkerDataSO[] workerDataArray, int[] workerLevelArray)
+    {
+        for (int i = 0; i < workerLevelArray.Length; i++)
+        {
+            if (workerLevelArray[i] < 0)
+                continue;
+
+            SpawnWorker(workerDataArray[i], workerLevelArray[i]);
+        }
+    }
+
+    public void LevelUpWorker(string workerName)
+    {
     }
 
     private Worker GetClosestWorkerFromIdleWorkerList(List<Worker> idleWorkerList, Vector3 taskTargetPosition)
@@ -72,11 +104,6 @@ public class WorkerManager : MonoBehaviour
         }
 
         return pendingRequestList[requestIndex];
-    }
-
-    public void RegisterRequest(TaskRequest request)
-    {
-        pendingRequestList.Add(request);
     }
 
     private void HandleRequest(TaskRequest request, Worker worker)

@@ -4,6 +4,7 @@ using TMPro;
 using DG.Tweening;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(GuidGenerator))]
 public class LockedElement : MonoBehaviour, IWantToBeSaved
@@ -24,6 +25,7 @@ public class LockedElement : MonoBehaviour, IWantToBeSaved
 
     [Header("Events")]
     public static Action<LockedElement> OnUnlocked;
+    [SerializeField] private UnityEvent unlockedCallback;
 
     private const string CURRENT_PRICE_KEY = "LOCKED_ELEMENT_CURRENT_PRICE";
 
@@ -137,6 +139,8 @@ public class LockedElement : MonoBehaviour, IWantToBeSaved
 
         // Animate unlocked elements
         // Play particles
+
+        unlockedCallback?.Invoke();
 
         if (!isUnlocked)
         {

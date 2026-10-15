@@ -34,8 +34,8 @@ public class PayAbility : MonoBehaviour
 
     private void AnimateCashToTarget(Transform target)
     {
-        GameObject cashObject = cashObjectPool.GetPooledObject();
-        cashObject.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
+        GameObject cashObject = cashObjectPool.GetPooledObject(transform);
+        cashObject.SetActive(true);
         ArcAnimator.Instance.Animate(cashObject.transform, target, 0.2f, 0f, 2f, () => cashObjectPool.ReturnObjectToPool(cashObject));
     }
 }

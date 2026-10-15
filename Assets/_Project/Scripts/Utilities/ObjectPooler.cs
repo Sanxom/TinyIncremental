@@ -15,11 +15,15 @@ public class ObjectPooler : MonoBehaviour
         InitializePool();
     }
 
-    public GameObject GetPooledObject()
+    public GameObject GetPooledObject(Transform newParent)
     {
         foreach (GameObject obj in pool)
             if (!obj.activeInHierarchy)
+            {
+                obj.transform.SetParent(newParent);
+                obj.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
                 return obj;
+            }
 
         return CreateNewObject();
     }

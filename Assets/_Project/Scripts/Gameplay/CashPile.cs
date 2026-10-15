@@ -67,8 +67,7 @@ public class CashPile : MonoBehaviour, IWantToBeSaved
         for (int i = 0; i < amount; i++)
         {
             Vector3 targetPosition = GetTargetGridPosition(i + cashAmountInPileToBeSaved);
-            GameObject cashPrefab = cashObjectPool.GetPooledObject();
-            cashPrefab.transform.SetParent(transform);
+            GameObject cashPrefab = cashObjectPool.GetPooledObject(transform);
             cashPrefab.transform.SetPositionAndRotation(targetPosition, Quaternion.identity);
             cashPrefab.SetActive(true);
         }

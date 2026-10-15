@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(NavigationAbility))]
@@ -14,10 +15,14 @@ public class Worker : MonoBehaviour
     [SerializeField] private NPCAnimator animator;
     private NavigationAbility navigationAbility;
     private HoldObjectAbility holdObjectAbility;
+    private WorkerManager workerManager;
 
     [Header("Task")]
     private WorkerTask currentTask;
     private State state;
+
+    [Header("Settings")]
+    private int level;
 
     public WorkerTask CurrentTask => currentTask;
     public bool HasReachedDestination => navigationAbility.HasReachedDestination();
@@ -41,6 +46,19 @@ public class Worker : MonoBehaviour
         currentTask?.Update();
     }
 
+    public void Init(WorkerManager workerManager, int level)
+    {
+        this.workerManager = workerManager;
+        this.level = level;
+
+        SetupStats();
+    }
+
+    private void SetupStats()
+    {
+
+    }
+
     public void AssignTask(WorkerTask workerTask)
     {
         currentTask = workerTask;
@@ -53,6 +71,23 @@ public class Worker : MonoBehaviour
 
         if (canReachDestination)
             StartWalkingState();
+    }
+
+    public void CompleteTask()
+    {
+        currentTask = null;
+        StartIdleState();
+    }
+
+    public void MarkAsBusy()
+    {
+        state = State.PerformingTask;
+    }
+
+    public void CancelTask()
+    {
+        currentTask.Cancel();
+        CompleteTask();
     }
 
     private void HandleStateMachine()
@@ -95,12 +130,6 @@ public class Worker : MonoBehaviour
         StartIdleState();
     }
 
-    public void CompleteTask()
-    {
-        currentTask = null;
-        StartIdleState();
-    }
-
     private void StartIdleState()
     {
         state = State.Idle;
@@ -110,16 +139,5 @@ public class Worker : MonoBehaviour
     private void StartWalkingState()
     {
         MarkAsBusy();
-    }
-
-    public void MarkAsBusy()
-    {
-        state = State.PerformingTask;
-    }
-
-    public void CancelTask()
-    {
-        currentTask.Cancel();
-        CompleteTask();
     }
 }
