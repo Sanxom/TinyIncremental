@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2411076058517162110}
   - component: {fileID: 6087705288843101679}
   - component: {fileID: 2909672992737826160}
+  - component: {fileID: 4221762776194545371}
   m_Layer: 0
   m_Name: Worker
   m_TagString: Untagged
@@ -169,6 +170,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoldUsedObjectAbility
   plateau: {fileID: 8165577599934194101}
+--- !u!114 &4221762776194545371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7389700602525970917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ed6eac8024489443838f558107d94c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterStats
+  baseStats: {fileID: 11400000, guid: 2c036562cbcb2f34a89651ac0a797b09, type: 2}
 --- !u!1001 &319546228565204269
 PrefabInstance:
   m_ObjectHideFlags: 0

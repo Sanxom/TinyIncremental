@@ -3,6 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(NavigationAbility))]
 [RequireComponent(typeof(HoldObjectAbility))]
+[RequireComponent(typeof(CharacterStats))]
 public class Worker : MonoBehaviour
 {
     public enum State
@@ -16,12 +17,14 @@ public class Worker : MonoBehaviour
     private NavigationAbility navigationAbility;
     private HoldObjectAbility holdObjectAbility;
     private WorkerManager workerManager;
+    private CharacterStats stats;
 
     [Header("Task")]
     private WorkerTask currentTask;
     private State state;
 
     [Header("Settings")]
+    private float revenueMultiplier;
     private int level;
 
     public WorkerTask CurrentTask => currentTask;
@@ -35,6 +38,7 @@ public class Worker : MonoBehaviour
     {
         navigationAbility = GetComponent<NavigationAbility>();
         holdObjectAbility = GetComponent<HoldObjectAbility>();
+        stats = GetComponent<CharacterStats>();
 
         state = State.Idle;
     }
@@ -52,11 +56,6 @@ public class Worker : MonoBehaviour
         this.level = level;
 
         SetupStats();
-    }
-
-    private void SetupStats()
-    {
-
     }
 
     public void AssignTask(WorkerTask workerTask)
@@ -88,6 +87,23 @@ public class Worker : MonoBehaviour
     {
         currentTask.Cancel();
         CompleteTask();
+    }
+
+    public void LevelUp()
+    {
+        level++;
+        SetupStats();
+    }
+
+    private void SetupStats()
+    {
+        Vector3Int levels = WorkerUtilities.GetStatLevelsFromLevel(level);
+        stats.SetupStats(levels);
+
+        navigationAbility.SetSpeed(stats.Speed);
+        holdObjectAbility.SetPlateauCapacity(stats.Capacity);
+        revenueMultiplier = stats.Revenue;
+
     }
 
     private void HandleStateMachine()
@@ -139,5 +155,19 @@ public class Worker : MonoBehaviour
     private void StartWalkingState()
     {
         MarkAsBusy();
+    }
+}
+
+public static class WorkerUtilities
+{
+    private static readonly int numOfStats = 3;
+
+    public static Vector3Int GetStatLevelsFromLevel(int level)
+    {
+        int speedLevel = Mathf.CeilToInt((float)level / numOfStats);
+        int capacityLevel = Mathf.CeilToInt(Mathf.Max(0f, level - 1) / numOfStats);
+        int revenueLevel = Mathf.CeilToInt(Mathf.Max(0f, level - 2) / numOfStats);
+
+        return new Vector3Int(speedLevel, capacityLevel, revenueLevel);
     }
 }

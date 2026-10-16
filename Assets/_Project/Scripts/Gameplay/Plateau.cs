@@ -127,6 +127,11 @@ public class Plateau : MonoBehaviour
         lastObjectPushed = objectInstance;
     }
 
+    public void UpdateMaxCapacity(int capacity)
+    {
+        maxCapacity = capacity;
+    }
+
     public void MarkAsDirty()
     {
         for (int i = 0; i < objectPositionsParent.childCount; i++)

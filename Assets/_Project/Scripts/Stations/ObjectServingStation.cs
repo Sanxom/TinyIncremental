@@ -20,7 +20,6 @@ public class ObjectServingStation : MonoBehaviour
     [SerializeField] private SpawnableObject objectServedPrefab;
     [SerializeField] private float servingDelay;
     [SerializeField] private int minObjectsToRequestFillOrServe = 4;
-    [SerializeField] private int amountOfCashToGenerate = 2;
     private float servingTimer;
     private int workerCount;
 
@@ -49,8 +48,11 @@ public class ObjectServingStation : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (!other.TryGetComponent(out CharacterStats characterStats))
+            return;
+
         if (workerCount > 0)
-            HandleObjectServing();
+            HandleObjectServing(characterStats);
     }
 
     private void OnTriggerExit(Collider other)
@@ -91,7 +93,7 @@ public class ObjectServingStation : MonoBehaviour
         tableManager.HandleCustomerServed(customerToServe);
     }
 
-    private void HandleObjectServing()
+    private void HandleObjectServing(CharacterStats characterStats)
     {
         if (servingTimer < servingDelay)
         {
@@ -112,16 +114,21 @@ public class ObjectServingStation : MonoBehaviour
             return;
         }
 
-        ServeObject();
+        ServeObject(characterStats);
     }
 
-    private void ServeObject()
+    private void ServeObject(CharacterStats characterStats)
     {
         servingTimer = 0f;
 
         Customer customerToServe = objectServingCustomerManager.PeekFirstCustomer();
 
-        cashPile.GenerateCash(amountOfCashToGenerate);
+        // TODO: Use a better formula to be able to generate more cash per serve
+        int baseRevenue = 1;
+        float revenueMultiplier = MathF.Max(1f, characterStats.Revenue);
+        int revenue = Mathf.CeilToInt(baseRevenue * revenueMultiplier);
+
+        cashPile.GenerateCash(revenue);
 
         SpawnableObject objectToServe = Pop();
 

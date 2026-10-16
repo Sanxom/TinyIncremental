@@ -126,3 +126,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIUpgradePip
   image: {fileID: 4215718216777274143}
   activeColor: {r: 0.4253851, g: 0.81, b: 0.18630001, a: 1}
+  blinkColor: {r: 0.96, g: 0.62736, b: 0.00959999, a: 1}

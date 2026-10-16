@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class HoldObjectAbility : MonoBehaviour
@@ -62,5 +63,10 @@ public class HoldObjectAbility : MonoBehaviour
             plateau.gameObject.SetActive(false);
 
         dropObjectTimer = 0f;
+    }
+
+    public void SetPlateauCapacity(int capacity)
+    {
+        plateau.UpdateMaxCapacity(capacity);
     }
 }

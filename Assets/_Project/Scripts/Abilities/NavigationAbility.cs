@@ -68,4 +68,9 @@ public class NavigationAbility : MonoBehaviour
 
         agent.enabled = true;
     }
+
+    public void SetSpeed(float speed)
+    {
+        agent.speed = speed;
+    }
 }

@@ -60,6 +60,14 @@ public class WorkerManager : MonoBehaviour
 
     public void LevelUpWorker(string workerName)
     {
+        for (int i = 0; i < workerList.Count; i++)
+        {
+            if (workerList[i].gameObject.name != workerName)
+                continue;
+
+            workerList[i].LevelUp();
+            break;
+        }
     }
 
     private Worker GetClosestWorkerFromIdleWorkerList(List<Worker> idleWorkerList, Vector3 taskTargetPosition)

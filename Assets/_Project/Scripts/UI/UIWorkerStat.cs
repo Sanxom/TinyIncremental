@@ -32,4 +32,12 @@ public class UIWorkerStat : MonoBehaviour
         pipList[blinkingPipIndex].Activate();
         blinkingPipIndex++;
     }
+
+    public void Blink()
+    {
+        if (blinkingPipIndex > pipList.Count - 1)
+            return;
+
+        pipList[blinkingPipIndex].Blink();
+    }
 }

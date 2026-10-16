@@ -46,7 +46,7 @@ public class UIWorkerContainer : MonoBehaviour
 
         UpdateButtonVisuals();
 
-        Vector3Int statLevels = GetStatLevelsFromLevel(Mathf.Max(workerData.InitialLevel, level));
+        Vector3Int statLevels = WorkerUtilities.GetStatLevelsFromLevel(Mathf.Max(workerData.InitialLevel, level));
 
         statArray[0].Init(workerData.MaxSpeed, statLevels.x);
         statArray[1].Init(workerData.MaxCapacity, statLevels.y);
@@ -59,6 +59,9 @@ public class UIWorkerContainer : MonoBehaviour
         }
 
         Unlock();
+
+        int statIndex = level % statArray.Length;
+        statArray[statIndex].Blink();
     }
 
     public void Unlock()
@@ -76,7 +79,8 @@ public class UIWorkerContainer : MonoBehaviour
 
         level++;
 
-
+        statIndex = level % statArray.Length;
+        statArray[statIndex].Blink();
 
         UpdateButtonVisuals();
     }
@@ -99,15 +103,6 @@ public class UIWorkerContainer : MonoBehaviour
             && level < workerData.MaxSpeed * numOfStats;
 
         videoUpgradeButton.gameObject.SetActive(level < workerData.MaxSpeed * numOfStats);
-    }
-
-    private Vector3Int GetStatLevelsFromLevel(int level)
-    {
-        int speedLevel = Mathf.CeilToInt((float)level / numOfStats);
-        int capacityLevel = Mathf.CeilToInt(Mathf.Max(0f, level - 1) / numOfStats);
-        int revenueLevel = Mathf.CeilToInt(Mathf.Max(0f, level - 2) / numOfStats);
-
-        return new Vector3Int(speedLevel, capacityLevel, revenueLevel);
     }
 
     private void InitButtonCallbacks()
