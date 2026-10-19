@@ -26,7 +26,7 @@ public class PayAbility : MonoBehaviour
 
         if (toPay <= 0) return;
 
-        CurrencyManager.Instance.AddCurrency(-toPay);
+        CurrencyManager.Instance.RemoveCurrency(toPay);
         lockedElement.CollectCashToPay(toPay);
 
         AnimateCashToTarget(lockedElement.transform);

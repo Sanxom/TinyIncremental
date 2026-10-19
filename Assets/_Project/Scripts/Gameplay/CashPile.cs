@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Tabsil.Sijil;
 
@@ -50,7 +47,6 @@ public class CashPile : MonoBehaviour, IWantToBeSaved
     public void Load()
     {
         isLoaded = true;
-
         if (!Sijil.TryLoad(this, guidGenerator.GUID, out object savedCashPileAmount))
             return;
 

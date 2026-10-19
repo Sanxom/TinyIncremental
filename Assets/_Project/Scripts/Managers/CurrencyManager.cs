@@ -46,12 +46,18 @@ public class CurrencyManager : MonoBehaviour, IWantToBeSaved
     [NaughtyAttributes.Button]
     public void Subtract10Currency()
     {
-        AddCurrency(-10);
+        RemoveCurrency(10);
     }
 
     public void AddCurrency(int amount)
     {
         Currency += amount;
+        SaveAndUpdateVisuals();
+    }
+
+    public void RemoveCurrency(int amount)
+    {
+        Currency -= amount;
         SaveAndUpdateVisuals();
     }
 
@@ -62,7 +68,7 @@ public class CurrencyManager : MonoBehaviour, IWantToBeSaved
         OnUpdated?.Invoke();
     }
 
-    public void UseCurrency(int amount) => AddCurrency(-amount);
+    public void UseCurrency(int amount) => RemoveCurrency(amount);
 
     public bool HasEnoughCurrency(int amount) => Currency >= amount;
     public bool HasEnoughPremiumCurrency(int amount) => Currency >= amount;
@@ -71,7 +77,7 @@ public class CurrencyManager : MonoBehaviour, IWantToBeSaved
     {
         if(HasEnoughCurrency(price))
         {
-            AddCurrency(-price);
+            RemoveCurrency(price);
             return true;
         }
 

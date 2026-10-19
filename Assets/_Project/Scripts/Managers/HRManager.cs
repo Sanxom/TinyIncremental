@@ -53,7 +53,7 @@ public class HRManager : MonoBehaviour, IWantToBeSaved
         else
         {
             workerLevelArray[workerIndex] = workerDataArray[workerIndex].InitialLevel;
-            CurrencyManager.Instance.AddCurrency(-workerDataArray[workerIndex].UnlockPrice);
+            CurrencyManager.Instance.RemoveCurrency(workerDataArray[workerIndex].UnlockPrice);
             uiWorkerContainer.Unlock();
             WorkerManager.Instance.SpawnWorker(workerDataArray[workerIndex], workerLevelArray[workerIndex]);
             Save();
@@ -77,7 +77,7 @@ public class HRManager : MonoBehaviour, IWantToBeSaved
     {
         int workerIndex = uiWorkerContainer.transform.GetSiblingIndex();
 
-        CurrencyManager.Instance.AddCurrency(-GetWorkerUpgradePriceFromLevel(workerLevelArray[workerIndex]));
+        CurrencyManager.Instance.RemoveCurrency(GetWorkerUpgradePriceFromLevel(workerLevelArray[workerIndex]));
 
         workerLevelArray[workerIndex]++;
         uiWorkerContainer.LevelUp();

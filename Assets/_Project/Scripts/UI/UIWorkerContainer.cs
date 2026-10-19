@@ -59,9 +59,6 @@ public class UIWorkerContainer : MonoBehaviour
         }
 
         Unlock();
-
-        int statIndex = level % statArray.Length;
-        statArray[statIndex].Blink();
     }
 
     public void Unlock()
@@ -70,6 +67,8 @@ public class UIWorkerContainer : MonoBehaviour
         level = Mathf.Max(workerData.InitialLevel, level);
 
         UpdateButtonVisuals();
+
+        BlinkNextUpgradePip();
     }
 
     public void LevelUp()
@@ -79,8 +78,7 @@ public class UIWorkerContainer : MonoBehaviour
 
         level++;
 
-        statIndex = level % statArray.Length;
-        statArray[statIndex].Blink();
+        BlinkNextUpgradePip();
 
         UpdateButtonVisuals();
     }
@@ -103,6 +101,12 @@ public class UIWorkerContainer : MonoBehaviour
             && level < workerData.MaxSpeed * numOfStats;
 
         videoUpgradeButton.gameObject.SetActive(level < workerData.MaxSpeed * numOfStats);
+    }
+
+    private void BlinkNextUpgradePip()
+    {
+        int statIndex = level % statArray.Length;
+        statArray[statIndex].Blink();
     }
 
     private void InitButtonCallbacks()
