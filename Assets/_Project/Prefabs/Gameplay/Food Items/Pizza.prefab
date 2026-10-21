@@ -45,7 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee9359d4dcdde842a17be3db649af79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pizza
+  spawnableObjectPool: {fileID: 0}
+  meshFilter: {fileID: 5943973097980917763}
+  model: {fileID: 8474027665344531657}
+  cleanMesh: {fileID: -2304508562620316840, guid: 866b00c8d68902b43971c0ab2d34834e, type: 3}
+  dirtyMesh: {fileID: 1073339379530274863, guid: d79d15a0ebe00d74f95afdec60be2c06, type: 3}
   cleanYOffsetOnPlateau: 0.03
+  dirtyYOffsetOnPlateau: 0
 --- !u!1001 &7086518340487942221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -115,8 +121,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dafef512d42488e4e9eeb8d478451c51, type: 3}
+--- !u!33 &5943973097980917763 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: dafef512d42488e4e9eeb8d478451c51, type: 3}
+  m_PrefabInstance: {fileID: 7086518340487942221}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7337181413121095590 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dafef512d42488e4e9eeb8d478451c51, type: 3}
+  m_PrefabInstance: {fileID: 7086518340487942221}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8474027665344531657 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: dafef512d42488e4e9eeb8d478451c51, type: 3}
   m_PrefabInstance: {fileID: 7086518340487942221}
   m_PrefabAsset: {fileID: 0}

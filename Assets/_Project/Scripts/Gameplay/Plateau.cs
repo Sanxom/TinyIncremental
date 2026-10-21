@@ -44,6 +44,8 @@ public class Plateau : MonoBehaviour
         return objectList.ToArray();
     }
 
+    public SpawnableObject Peek() => GetFirstObjectPosition().Peek();
+
     public SpawnableObject Pop()
     {
         ObjectPosition objectPosition = GetLastObjectPosition();
@@ -83,6 +85,25 @@ public class Plateau : MonoBehaviour
         }
 
         return counter;
+    }
+
+    /// <summary>
+    /// We can only accept a new object onto the Plateau if it's either Empty, has the same cleanliness as this Plateau, or has the same Type of SpawnableObject(s) already on it.
+    /// </summary>
+    /// <param name="spawnableObject"></param>
+    /// <returns></returns>
+    public bool CanAcceptObject(SpawnableObject spawnableObject)
+    {
+        if (IsEmpty)
+            return true;
+        // TODO: Mason added this if-check for the same cleanliness (probably unnecessary)
+        if ((spawnableObject.IsDirty && !isDirty)
+            || (!spawnableObject.IsDirty && isDirty))
+            return false;
+        if (GetFirstObjectPosition().Peek().GetType() != spawnableObject.GetType())
+            return false;
+
+        return true;
     }
 
     public void Push(SpawnableObject objectInstance)
@@ -127,10 +148,7 @@ public class Plateau : MonoBehaviour
         lastObjectPushed = objectInstance;
     }
 
-    public void UpdateMaxCapacity(int capacity)
-    {
-        maxCapacity = capacity;
-    }
+    public void UpdateMaxCapacity(int capacity) => maxCapacity = capacity;
 
     public void MarkAsDirty()
     {

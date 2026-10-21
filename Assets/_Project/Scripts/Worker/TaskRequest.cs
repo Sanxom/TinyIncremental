@@ -18,6 +18,7 @@ public abstract class TaskRequest
     public TaskRequest() { }
 }
 
+[System.Serializable]
 public class FillStationPlateauRequest : TaskRequest
 {
     private SpawnableObject spawnObject;
@@ -35,6 +36,7 @@ public class FillStationPlateauRequest : TaskRequest
     }
 }
 
+[System.Serializable]
 public class ServeCustomersRequest : TaskRequest
 {
     public Vector3 WorkerTargetPosition { get; private set; }
@@ -50,6 +52,7 @@ public class ServeCustomersRequest : TaskRequest
     }
 }
 
+[System.Serializable]
 public class CleanTableRequest : TaskRequest
 {
     public TableSet Table { get; private set; }
@@ -63,6 +66,7 @@ public class CleanTableRequest : TaskRequest
     }
 }
 
+[System.Serializable]
 public class IdleRequest : TaskRequest
 {
     public Vector3 TargetPosition { get; private set; }

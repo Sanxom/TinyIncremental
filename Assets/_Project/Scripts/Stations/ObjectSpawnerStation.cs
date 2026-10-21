@@ -13,6 +13,7 @@ public class ObjectSpawnerStation : MonoBehaviour
     [SerializeField] private float spawnDelay;
     private float spawnTimer;
 
+    public SpawnableObject SpawnableObjectPrefab => spawnableObjectPrefab;
     public Type ObjectType => spawnableObjectPrefab.GetType();
     public Vector3 WorkerTargetPosition => workerTargetPoint.position;
 

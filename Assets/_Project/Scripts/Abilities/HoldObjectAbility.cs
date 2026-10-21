@@ -33,6 +33,9 @@ public class HoldObjectAbility : MonoBehaviour
             return;
         }
 
+        if (plateau.gameObject.activeInHierarchy && !plateau.CanAcceptObject(spawnerStation.SpawnableObjectPrefab))
+            return;
+
         SpawnableObject objectToGrab = spawnerStation.Pop();
 
         if (objectToGrab == null) return;
@@ -54,6 +57,9 @@ public class HoldObjectAbility : MonoBehaviour
             dropObjectTimer += Time.deltaTime;
             return;
         }
+
+        if (!dropZone.CanAcceptObject(plateau.Peek()))
+            return;
 
         SpawnableObject spawnableObject = plateau.Pop();
 

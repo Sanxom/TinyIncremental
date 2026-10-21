@@ -19,14 +19,9 @@ public class ObjectPosition : MonoBehaviour
         isEmpty = true;
     }
 
-    public void Push(SpawnableObject objectInstance)
+    public SpawnableObject Peek()
     {
-        objectInThisPosition = objectInstance;
-
-        objectInstance.transform.SetParent(transform);
-        objectInstance.transform.localPosition = Vector3.zero;
-
-        isEmpty = false;
+        return objectInThisPosition;
     }
 
     public SpawnableObject Pop()
@@ -37,6 +32,16 @@ public class ObjectPosition : MonoBehaviour
         objectInThisPosition = null;
 
         return objectToReturn;
+    }
+
+    public void Push(SpawnableObject objectInstance)
+    {
+        objectInThisPosition = objectInstance;
+
+        objectInstance.transform.SetParent(transform);
+        objectInstance.transform.localPosition = Vector3.zero;
+
+        isEmpty = false;
     }
 
     public void DisplayObject()

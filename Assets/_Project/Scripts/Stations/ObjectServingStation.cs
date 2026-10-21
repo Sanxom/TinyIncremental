@@ -3,15 +3,14 @@ using UnityEngine;
 
 [RequireComponent(typeof(ObjectServingCustomerManager))]
 [RequireComponent(typeof(GuidGenerator))]
-public class ObjectServingStation : MonoBehaviour
+public abstract class ObjectServingStation : MonoBehaviour
 {
     [Header("Components")]
-    private ObjectServingCustomerManager objectServingCustomerManager;
     private GuidGenerator guidGenerator;
+    protected ObjectServingCustomerManager objectServingCustomerManager;
 
     [Header("Elements")]
     [SerializeField] private ObjectDropZone dropZone;
-    [SerializeField] private TableManager tableManager;
     [SerializeField] private TaskRequester taskRequester;
     [SerializeField] private Transform workerServingTargetPoint;
     [SerializeField] private CashPile cashPile;
@@ -20,8 +19,8 @@ public class ObjectServingStation : MonoBehaviour
     [SerializeField] private SpawnableObject objectServedPrefab;
     [SerializeField] private float servingDelay;
     [SerializeField] private int minObjectsToRequestFillOrServe = 4;
-    private float servingTimer;
     private int workerCount;
+    protected float servingTimer;
 
     [Header("Request Timer")]
     [SerializeField] private float requestCheckDelay;
@@ -31,6 +30,7 @@ public class ObjectServingStation : MonoBehaviour
     {
         objectServingCustomerManager = GetComponent<ObjectServingCustomerManager>();
         guidGenerator = GetComponent<GuidGenerator>();
+        dropZone.SetAcceptedObject(objectServedPrefab);
     }
 
     private void Update()
@@ -84,14 +84,7 @@ public class ObjectServingStation : MonoBehaviour
         return workerCount <= 0 && objectServingCustomerManager.IsCustomerReadyToTakeObject() && HasEnoughObjects();
     }
 
-    private void DequeueCustomer(Customer customerToServe)
-    {
-        if (!tableManager.IsAnyTableAvailable())
-            return;
-
-        objectServingCustomerManager.Dequeue();
-        tableManager.HandleCustomerServed(customerToServe);
-    }
+    protected abstract void DequeueCustomer(Customer customer);
 
     private void HandleObjectServing(CharacterStats characterStats)
     {
@@ -117,10 +110,10 @@ public class ObjectServingStation : MonoBehaviour
         ServeObject(characterStats);
     }
 
-    private void ServeObject(CharacterStats characterStats)
-    {
-        servingTimer = 0f;
+    protected abstract void ServeObject(CharacterStats characterStats);
 
+    protected void ServeCustomer(CharacterStats characterStats)
+    {
         Customer customerToServe = objectServingCustomerManager.PeekFirstCustomer();
 
         // TODO: Use a better formula to be able to generate more cash per serve

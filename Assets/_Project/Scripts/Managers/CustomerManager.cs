@@ -10,6 +10,8 @@ public class CustomerManager : MonoBehaviour
     [SerializeField] private Customer customerPrefab;
     [SerializeField] private Transform customerExitPoint;
 
+    public ObjectPooler CustomerObjectPool => customerObjectPool;
+
     private void Awake()
     {
         if (Instance == null)

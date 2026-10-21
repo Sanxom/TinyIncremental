@@ -2,7 +2,7 @@
 	"data": {
 		"JoystickPlayerController_LAST_POSITION": {
 			"dataType": "Tabsil.Sijil.SerializableObject`1[[UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-			"value": "{\r\n\t\"myObject\": {\r\n\t\t\"x\": 0.2781891,\r\n\t\t\"y\": 1.78813934E-07,\r\n\t\t\"z\": 1.95623744\r\n\t}\r\n}"
+			"value": "{\r\n\t\"myObject\": {\r\n\t\t\"x\": 3.429042,\r\n\t\t\"y\": -1.31130219E-06,\r\n\t\t\"z\": 3.681832\r\n\t}\r\n}"
 		},
 		"LockedElement_1cf3b359-34e2-47fb-82dd-876207b6d9eaLOCKED_ELEMENT_CURRENT_PRICE": {
 			"dataType": "Tabsil.Sijil.SerializableObject`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
@@ -10,7 +10,7 @@
 		},
 		"CurrencyManager_currency": {
 			"dataType": "Tabsil.Sijil.SerializableObject`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-			"value": "{\r\n\t\"myObject\": 74\r\n}"
+			"value": "{\r\n\t\"myObject\": 790\r\n}"
 		},
 		"ProgressionManager_PROGRESSION_INDEX": {
 			"dataType": "Tabsil.Sijil.SerializableObject`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
@@ -94,7 +94,11 @@
 		},
 		"CashPile_94722ff2-47b4-4704-b711-d44f19bb7ec6": {
 			"dataType": "Tabsil.Sijil.SerializableObject`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-			"value": "{\r\n\t\"myObject\": 0\r\n}"
+			"value": "{\r\n\t\"myObject\": 12\r\n}"
+		},
+		"CashPile_8e177368-346a-45b6-949c-fc12dd9b72e9": {
+			"dataType": "Tabsil.Sijil.SerializableObject`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+			"value": "{\r\n\t\"myObject\": 6\r\n}"
 		}
 	}
 }
